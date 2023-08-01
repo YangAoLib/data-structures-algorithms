@@ -1,66 +1,17 @@
 package edu.yangao.queue;
 
 import java.util.NoSuchElementException;
-import java.util.Scanner;
 
 /**
- * 数组模拟循环队列
+ * 数组模拟队列
  *
  * @author YangAo
  */
-public class CircleArrayQueue {
+public class ArrayQueue implements Queue {
 
     public static void main(String[] args) {
-        CircleArrayQueue arrayQueue = new CircleArrayQueue(3);
-
-        // 简易交互界面
-        // 控制程序结束
-        boolean loop = true;
-        // 用于获取用户的输入
-        char key = ' ';
-        Scanner scanner = new Scanner(System.in);
-        while (loop) {
-            System.out.println("s(show): 显示队列");
-            System.out.println("e(exit): 退出程序");
-            System.out.println("a(add): 添加数据到队列");
-            System.out.println("g(get): 取出队列头部元素");
-            System.out.println("p(peek): 查看队列头部元素");
-            // 获取输入的首个字
-            key = scanner.next().charAt(0);
-            switch (key) {
-                case 's':
-                    arrayQueue.show();
-                    break;
-                case 'a':
-                    // 提示并获取用户的输入
-                    System.out.print("请输入要添加的数字: ");
-                    int value = scanner.nextInt();
-                    arrayQueue.add(value);
-                    break;
-                case 'g':
-                    try {
-                        System.out.printf("取出的队列头元素是%d\n", arrayQueue.get());
-                    } catch (NoSuchElementException e) {
-                        System.out.println(e.getMessage());
-                    }
-                    break;
-                case 'p':
-                    try {
-                        System.out.printf("查看队列头元素是%d\n", arrayQueue.peek());
-                    } catch (NoSuchElementException e) {
-                        System.out.println(e.getMessage());
-                    }
-                    break;
-                case 'e':
-                    // 关闭scanner
-                    scanner.close();
-                    // 结束循环
-                    loop = false;
-                    break;
-                default:
-                    System.out.println("错误的输入");
-            }
-        }
+        ArrayQueue arrayQueue = new ArrayQueue(3);
+        arrayQueue.testQueue();
     }
 
     /**
@@ -68,7 +19,7 @@ public class CircleArrayQueue {
      *
      * @param maxSize 数组大小
      */
-    public CircleArrayQueue(int maxSize) {
+    public ArrayQueue(int maxSize) {
         this.maxSize = maxSize;
         // 创建数组
         arr = new int[maxSize];
@@ -161,10 +112,10 @@ public class CircleArrayQueue {
     private int rear = -1;
 
     // 队列数据大小
-    private int maxSize;
+    private final int maxSize;
 
     // 实际存储数据的数组引用
-    private int[] arr;
+    private final int[] arr;
 
 
 }

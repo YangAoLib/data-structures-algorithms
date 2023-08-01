@@ -1,66 +1,17 @@
 package edu.yangao.queue;
 
 import java.util.NoSuchElementException;
-import java.util.Scanner;
 
 /**
- * 数组模拟队列
+ * 数组模拟循环队列
  *
  * @author YangAo
  */
-public class ArrayQueue {
+public class CircleArrayQueue implements Queue {
 
     public static void main(String[] args) {
-        ArrayQueue arrayQueue = new ArrayQueue(3);
-
-        // 简易交互界面
-        // 控制程序结束
-        boolean loop = true;
-        // 用于获取用户的输入
-        char key = ' ';
-        Scanner scanner = new Scanner(System.in);
-        while (loop) {
-            System.out.println("s(show): 显示队列");
-            System.out.println("e(exit): 退出程序");
-            System.out.println("a(add): 添加数据到队列");
-            System.out.println("g(get): 取出队列头部元素");
-            System.out.println("p(peek): 查看队列头部元素");
-            // 获取输入的首个字
-            key = scanner.next().charAt(0);
-            switch (key) {
-                case 's':
-                    arrayQueue.show();
-                    break;
-                case 'a':
-                    // 提示并获取用户的输入
-                    System.out.print("请输入要添加的数字: ");
-                    int value = scanner.nextInt();
-                    arrayQueue.add(value);
-                    break;
-                case 'g':
-                    try {
-                        System.out.printf("取出的队列头元素是%d\n", arrayQueue.get());
-                    } catch (NoSuchElementException e) {
-                        System.out.println(e.getMessage());
-                    }
-                    break;
-                case 'p':
-                    try {
-                        System.out.printf("查看队列头元素是%d\n", arrayQueue.peek());
-                    } catch (NoSuchElementException e) {
-                        System.out.println(e.getMessage());
-                    }
-                    break;
-                case 'e':
-                    // 关闭scanner
-                    scanner.close();
-                    // 结束循环
-                    loop = false;
-                    break;
-                default:
-                    System.out.println("错误的输入");
-            }
-        }
+        CircleArrayQueue circleArrayQueue = new CircleArrayQueue(3);
+        circleArrayQueue.testQueue();
     }
 
     /**
@@ -68,7 +19,7 @@ public class ArrayQueue {
      *
      * @param maxSize 数组大小
      */
-    public ArrayQueue(int maxSize) {
+    public CircleArrayQueue(int maxSize) {
         this.maxSize = maxSize;
         // 创建数组
         arr = new int[maxSize];
@@ -87,7 +38,9 @@ public class ArrayQueue {
             return;
         }
         // 添加元素
-        arr[rear++] = item;
+        arr[rear] = item;
+        // 后移队列尾部的下标
+        rear = ++rear % maxSize;
     }
 
     /**
@@ -112,8 +65,12 @@ public class ArrayQueue {
             System.out.println("队列已空, 无法取出元素");
             throw new NoSuchElementException("队列中无元素");
         }
-        // 取出数据
-        return arr[front++];
+        // 取出数据并缓存
+        int value = arr[front];
+        // 修改队列头部位置
+        front = ++front % maxSize;
+        // 返回数据
+        return value;
     }
 
     /**
@@ -150,18 +107,35 @@ public class ArrayQueue {
             // 队列为空, 输出错误信息, 不进行打印操作
             System.out.println("队列已空, 无法打印");
         }
-        for (int i = front; i <= front + (rear + maxSize - front) % maxSize; i++) {
+        for (int i = front; i < front + size(); i++) {
             System.out.printf("arr[%d]=%d\n", i % maxSize, arr[i % maxSize]);
         }
     }
 
-    // 队列头部, 指向当前队列第一个元素, 在取得元素后, 进行后移操作
-    private int front = -1;
+    public int size() {
+        return (rear + maxSize - front) % maxSize;
+    }
 
-    // 队列尾部, 指向当前队列最后一个元素的后一个位置, 在进行元素的添加后, 再进行后移
-    private int rear = -1;
+    /**
+     * 队列尾部, 指向当前队列最后一个元素的后一个位置, 在进行元素的添加后, 再进行后移
+     * <p>因为没有元素, 所以队列的最后一个元素的位置为-1, 所以其后一个位置是0</p>
+     */
+    private int rear;
 
-    // 队列数据大小
+    /**
+     * 队列头部, 指向当前队列第一个元素, 在取得元素后, 进行后移操作
+     * <p>
+     *     当前没有元素, 与队列尾部对齐
+     * </p>
+     */
+    private int front = rear;
+
+
+    /**
+     * 用于存储队列的数组的大小
+     * <p>循环队列需要一个空位做约定, 用于判断当前队列是满的还是空的</p>
+     * <p>所以实际可存储的数据量会比数组小 1</p>
+     */
     private final int maxSize;
 
     // 实际存储数据的数组引用
