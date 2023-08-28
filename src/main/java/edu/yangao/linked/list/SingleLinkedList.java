@@ -104,7 +104,7 @@ public class SingleLinkedList implements LinkedList {
 
     @Override
     public void reverse() {
-        // 前一节点初始为空
+        // 前一个节点初始为空
         Node pre = null;
         // 当前直接初始为第一个节点
         Node cur = head.next;
