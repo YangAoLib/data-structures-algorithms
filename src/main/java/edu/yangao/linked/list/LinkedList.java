@@ -112,6 +112,16 @@ public interface LinkedList {
                     ", info='" + info + '\'' +
                     '}';
         }
+
+        @Override
+        protected Object clone() {
+            Node clone = new Node();
+            clone.previous = previous;
+            clone.next = next;
+            clone.orderNum = orderNum;
+            clone.info = info;
+            return clone;
+        }
     }
 
     default void testLinkedList() {
