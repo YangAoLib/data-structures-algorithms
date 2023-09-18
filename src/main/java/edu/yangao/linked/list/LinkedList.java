@@ -156,12 +156,13 @@ public interface LinkedList {
         // 修改
         Node newNode = new Node(4, "公孙胜");
         update(newNode);
-        /*try {
-        Node newNode1 = new Node(5, "公孙胜");
+        try {
+            Node newNode1 = new Node(5, "公孙胜");
             update(newNode1);
         } catch (Exception e) {
-            e.printStackTrace();
-        }*/
+            System.out.println(e.getLocalizedMessage());
+            System.out.println();
+        }
         System.out.println("修改后的链表" + newNode);
         list();
 
