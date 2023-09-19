@@ -12,6 +12,8 @@ public class DoubleLinkedList implements LinkedList {
 
     public static void main(String[] args) {
         DoubleLinkedList doubleLinkedList = new DoubleLinkedList();
+        doubleLinkedList.reverse();
+        doubleLinkedList.list();
         doubleLinkedList.testLinkedList();
     }
 
@@ -119,26 +121,23 @@ public class DoubleLinkedList implements LinkedList {
 
     @Override
     public void reverse() {
-        // 如果链表为空则直接返回
-        if (isEmpty()) return;
         // 获取第一个节点
         Node cur = head.next;
-        // 第一个节点的前一个节点设空(因为反转后它是最后一个节点)
-        cur.previous = null;
-        while (true) {
+        // 前一个节点为空 (因为反转后第一个节点就变成最后一个节点)
+        Node pre = null;
+        while (cur != null) {
             // 将每个节点的前一个节点和后一个节点交换
             Node tempNext = cur.next;
-            cur.next = cur.previous;
+            cur.next = pre;
             cur.previous = tempNext;
-            // 如果下一个节点不为空则后移之后继续操作
-            if (tempNext != null) cur = tempNext;
-            // 否则退出保留(反转后链表的第一个节点的引用)
-            else break;
+            // 后移
+            pre = cur;
+            cur = tempNext;
         }
-        // 将新链表连接到当前头节点上
-        head.next = cur;
+        // 将新链表连接到当前头节点上 (cur为空了 所以pre是新链表的第一个有效节点)
+        head.next = pre;
         // 将第一个节点的前一个节点指向头节点
-        cur.previous = head;
+        if (pre != null) pre.previous = head;
     }
 
     @Override
