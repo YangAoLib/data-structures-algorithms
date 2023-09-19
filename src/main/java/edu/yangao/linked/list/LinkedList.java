@@ -117,6 +117,11 @@ public interface LinkedList {
         }
 
         @Override
+        public int hashCode() {
+            return orderNum.hashCode();
+        }
+
+        @Override
         public String toString() {
             return "Node{" +
                     "orderNum=" + orderNum +
@@ -167,6 +172,12 @@ public interface LinkedList {
         // 修改
         Node newNode = new Node(4, "公孙胜");
         update(newNode);
+        System.out.println("修改后的链表" + newNode);
+        list();
+        newNode = new Node(1, "测试");
+        update(newNode);
+        System.out.println("修改后的链表" + newNode);
+        list();
         try {
             Node newNode1 = new Node(5, "公孙胜");
             update(newNode1);
@@ -174,19 +185,23 @@ public interface LinkedList {
             System.out.println(e.getLocalizedMessage());
             System.out.println();
         }
-        System.out.println("修改后的链表" + newNode);
-        list();
 
         // 删除
-        del(newNode);
-        /*try {
-        Node newNode1 = new Node(5, "公孙胜");
+        Node delNode = new Node(4, "公孙胜");
+        del(delNode);
+        System.out.println("删除后的链表" + delNode);
+        list();
+        Node delNode1 = new Node(1, "测试");
+        del(delNode1);
+        System.out.println("删除后的链表" + delNode1);
+        list();
+        try {
+            Node newNode1 = new Node(5, "公孙胜");
             del(newNode1);
         } catch (Exception e) {
-            e.printStackTrace();
-        }*/
-        System.out.println("删除后的链表" + newNode);
-        list();
+            System.out.println(e.getLocalizedMessage());
+            System.out.println();
+        }
 
         // 反转后
         reverse();
