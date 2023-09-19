@@ -96,8 +96,8 @@ public class SingleLinkedList implements LinkedList {
     public Integer getLength() {
         // 遍历统计链表长度
         int count = 0;
-        for (Node temp = head.next; temp != null; ++count) {
-            temp = temp.next;
+        for (Node temp = head.next; temp != null; temp = temp.next) {
+            ++count;
         }
         return count;
     }

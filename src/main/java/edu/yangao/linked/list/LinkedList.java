@@ -14,24 +14,28 @@ public interface LinkedList {
 
     /**
      * 向列表尾部添加节点
+     *
      * @param node 节点信息
      */
     void add(Node node);
 
     /**
      * 按顺序向链表中添加节点
+     *
      * @param node 节点信息
      */
     void addByOrderNum(Node node);
 
     /**
      * 更新节点信息
+     *
      * @param node 节点信息
      */
     void update(Node node);
 
     /**
      * 删除节点
+     *
      * @param node 节点信息
      */
     void del(Node node);
@@ -43,6 +47,7 @@ public interface LinkedList {
 
     /**
      * 获取单链表中有效节点的个数
+     *
      * @return 有效节点的个数
      */
     Integer getLength();
@@ -57,6 +62,12 @@ public interface LinkedList {
      */
     void reversePrint();
 
+    /**
+     * 是否为空
+     */
+    default Boolean isEmpty() {
+        return getLength() == 0;
+    }
 
     /**
      * 节点信息
