@@ -1,6 +1,7 @@
 package edu.yangao.linked.list;
 
 import java.util.Deque;
+import java.util.Optional;
 
 /**
  * 双向链表
@@ -15,16 +16,17 @@ public class DoubleLinkedList implements LinkedList {
     }
 
     public DoubleLinkedList() {
+        head = new Node();
     }
 
     public DoubleLinkedList(Node head) {
-        this.head = head;
+        this.head = Optional.ofNullable(head).orElse(new Node());
     }
 
     /**
      * 头节点
      */
-    private Node head = new Node();
+    private final Node head;
 
 
     @Override
@@ -117,6 +119,8 @@ public class DoubleLinkedList implements LinkedList {
 
     @Override
     public void reverse() {
+        // 如果链表为空则直接返回
+        if (isEmpty()) return;
         // 获取第一个节点
         Node cur = head.next;
         // 第一个节点的前一个节点设空(因为反转后它是最后一个节点)
