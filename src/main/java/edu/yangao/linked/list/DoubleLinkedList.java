@@ -146,7 +146,7 @@ public class DoubleLinkedList implements LinkedList {
         Deque<Node> stack = new java.util.LinkedList<>();
         for(Node cur = head.next; cur != null; cur = cur.next) {
             // 存储克隆后的节点 (防止影响之前的链表)
-            Node tempCur = (Node) cur.clone();
+            Node tempCur = cur.clone();
             // 设置节点的下一个节点为栈顶节点
             tempCur.next = stack.peek();
             // 将节点存入栈

@@ -130,7 +130,7 @@ public interface LinkedList {
         }
 
         @Override
-        protected Object clone() {
+        protected Node clone() {
             Node clone = new Node();
             clone.previous = previous;
             clone.next = next;
