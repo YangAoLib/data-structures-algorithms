@@ -114,7 +114,7 @@ public class DoubleLinkedList implements LinkedList {
     }
 
     @Override
-    public Integer getLength() {
+    public Integer size() {
         int count = 0;
         for (Node temp = head.next; temp != null; temp = temp.next)
             ++count;

@@ -50,7 +50,7 @@ public interface LinkedList {
      *
      * @return 有效节点的个数
      */
-    Integer getLength();
+    Integer size();
 
     /**
      * 反转链表
@@ -66,7 +66,7 @@ public interface LinkedList {
      * 是否为空
      */
     default Boolean isEmpty() {
-        return getLength() == 0;
+        return size() == 0;
     }
 
     /**
@@ -159,14 +159,14 @@ public interface LinkedList {
         Node node3 = new Node(3, "吴用");
         Node node4 = new Node(4, "林冲");
         // 直接添加到尾部
-        System.out.println("长度: " + getLength());
+        System.out.println("长度: " + size());
         System.out.println("直接添加到尾部");
         add(node1);
         add(node3);
         add(node4);
         add(node2);
 
-        System.out.println("长度: " + getLength());
+        System.out.println("长度: " + size());
         list();
 
         // 按顺序添加

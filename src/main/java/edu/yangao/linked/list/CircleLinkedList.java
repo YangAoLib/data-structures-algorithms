@@ -60,7 +60,7 @@ public class CircleLinkedList implements LinkedList {
                 throw new RuntimeException("当前队列为空");
             } else if (startNo < 1){
                 throw new RuntimeException("起点不能小于1");
-            } else if (getLength() < startNo) {
+            } else if (size() < startNo) {
                 throw new RuntimeException("起点不能超过队列长度");
             }
             // 找到开始节点
@@ -92,7 +92,7 @@ public class CircleLinkedList implements LinkedList {
                 throw new RuntimeException("当前队列为空");
             } else if (startNo < 1){
                 throw new RuntimeException("起点不能小于1");
-            } else if (getLength() < startNo) {
+            } else if (size() < startNo) {
                 throw new RuntimeException("起点不能超过队列长度");
             }
             // 找到开始节点
@@ -246,7 +246,7 @@ public class CircleLinkedList implements LinkedList {
     }
 
     @Override
-    public Integer getLength() {
+    public Integer size() {
         // 记数值
         Integer count = 0;
         // 遍历链表

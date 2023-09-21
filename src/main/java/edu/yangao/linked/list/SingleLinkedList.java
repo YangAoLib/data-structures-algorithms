@@ -95,7 +95,7 @@ public class SingleLinkedList implements LinkedList {
 
 
     @Override
-    public Integer getLength() {
+    public Integer size() {
         // 遍历统计链表长度
         int count = 0;
         for (Node temp = head.next; temp != null; temp = temp.next) {
