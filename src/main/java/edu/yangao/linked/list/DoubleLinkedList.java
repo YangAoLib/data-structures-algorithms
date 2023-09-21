@@ -91,7 +91,7 @@ public class DoubleLinkedList implements LinkedList {
     }
 
     @Override
-    public void del(Node node) {
+    public Node del(Node node) {
         // 寻找要删除的节点
         Node cur = head.next;
         while (cur != null && !node.equals(cur))
@@ -104,6 +104,8 @@ public class DoubleLinkedList implements LinkedList {
             if (cur.next != null) cur.next.previous = cur.previous;
         // 不存在删除节点则抛出异常
         } else throw new RuntimeException("不存在对应节点");
+        // 清空节点链接并返回
+        return cur.clearLink();
     }
 
     @Override

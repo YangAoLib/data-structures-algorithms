@@ -73,7 +73,7 @@ public class SingleLinkedList implements LinkedList {
     }
 
     @Override
-    public void del(Node node) {
+    public Node del(Node node) {
         // 查找需要删除的节点与前一个节点
         Node pre = head;
         Node cur = head.next;
@@ -84,6 +84,8 @@ public class SingleLinkedList implements LinkedList {
         // 找到节点则将其删除(将前一个节点的下一个节点指向当前节点的下一个节点)
         if (cur != null) pre.next = cur.next;
         else throw new RuntimeException("不存在对应节点");
+        // 清空节点链接并返回
+        return cur.clearLink();
     }
 
     @Override

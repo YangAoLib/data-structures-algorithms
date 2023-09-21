@@ -38,7 +38,7 @@ public interface LinkedList {
      *
      * @param node 节点信息
      */
-    void del(Node node);
+    Node del(Node node);
 
     /**
      * 清空链表
@@ -101,6 +101,16 @@ public interface LinkedList {
         public Node(Integer orderNum, String info) {
             this.orderNum = orderNum;
             this.info = info;
+        }
+
+        /**
+         * 清空链接
+         * @return 本节点
+         */
+        public Node clearLink() {
+            next = null;
+            previous = null;
+            return this;
         }
 
         @Override
