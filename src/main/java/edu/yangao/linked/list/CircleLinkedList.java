@@ -1,6 +1,8 @@
 package edu.yangao.linked.list;
 
+import java.util.ArrayList;
 import java.util.Deque;
+import java.util.List;
 
 /**
  * 环型链表
@@ -10,7 +12,15 @@ import java.util.Deque;
 public class CircleLinkedList implements LinkedList {
 
     public static void main(String[] args) {
-        new CircleLinkedList().testLinkedList();
+        CircleLinkedList circleLinkedList = new CircleLinkedList();
+        circleLinkedList.testLinkedList();
+
+        circleLinkedList.clear();
+        Joseph joseph = circleLinkedList.new Joseph();
+        joseph.addBoy(25);
+        System.out.println(joseph.countBoy(1, 2));
+        joseph.addBoy(25);
+        System.out.println(joseph.countBoyNative(1, 2));
     }
 
     public CircleLinkedList() {
@@ -18,6 +28,97 @@ public class CircleLinkedList implements LinkedList {
 
     public CircleLinkedList(Node first) {
         this.first = first;
+    }
+
+    /**
+     * 约瑟夫问题
+     */
+    public class Joseph {
+
+        /**
+         * 加入节点的数量
+         * @param count 节点数量
+         */
+        public void addBoy(Integer count) {
+            for(int i = 0; i < count; ++i) {
+                Integer no = i + 1;
+                add(new Node(no, no.toString()));
+            }
+        }
+
+        /**
+         * 计算出队顺序
+         * @param startNo 从第几个开始数
+         * @param countNum 每回数多少下
+         * @return 出队编号的列表
+         */
+        public List<Integer> countBoy(Integer startNo, Integer countNum) {
+            ArrayList<Integer> countNoList = new ArrayList<>();
+            // 对输入进行校验
+            // 队列为空 || 起点位置小于1 || 起点位置大于队列长度
+            if (isEmpty()) {
+                throw new RuntimeException("当前队列为空");
+            } else if (startNo < 1){
+                throw new RuntimeException("起点不能小于1");
+            } else if (getLength() < startNo) {
+                throw new RuntimeException("起点不能超过队列长度");
+            }
+            // 找到开始节点
+            Node start = first;
+            for(int i = 1; i < startNo; ++i) {
+                start = start.next;
+            }
+            // 进行出队操作 (全部出队为止)
+            while (!isEmpty()) {
+                // 数数 countNum - 1 次
+                for (int i = 1; i < countNum; ++i) {
+                    start = start.next;
+                }
+                // 出队(删除节点)
+                Node tempNext = start.next;
+                Node del = del(start);
+                countNoList.add(del.orderNum);
+                start = tempNext;
+            }
+            // 出队顺序
+            return countNoList;
+        }
+
+        public List<Integer> countBoyNative(Integer startNo, Integer countNum) {
+            ArrayList<Integer> countNoList = new ArrayList<>();
+            // 对输入进行校验
+            // 队列为空 || 起点位置小于1 || 起点位置大于队列长度
+            if (isEmpty()) {
+                throw new RuntimeException("当前队列为空");
+            } else if (startNo < 1){
+                throw new RuntimeException("起点不能小于1");
+            } else if (getLength() < startNo) {
+                throw new RuntimeException("起点不能超过队列长度");
+            }
+            // 找到开始节点
+            Node start = first;
+            for(int i = 1; i < startNo; ++i) {
+                start = start.next;
+            }
+            // 找到开始节点的前一个节点
+            Node startPre = getPre(start);
+            // 进行出队操作 (有一个节点以上就执行)
+            while (startPre != start) {
+                // 数数 countNum - 1 次
+                for (int i = 1; i < countNum; ++i) {
+                    startPre = start;
+                    start = start.next;
+                }
+                // 出队(删除节点)
+                startPre.next = start.next;
+                countNoList.add(start.orderNum);
+                start = start.next;
+            }
+            // 取出最后一个节点
+            countNoList.add(start.orderNum);
+            first = null;
+            return countNoList;
+        }
     }
 
     /**
@@ -107,7 +208,7 @@ public class CircleLinkedList implements LinkedList {
     }
 
     @Override
-    public void del(Node node) {
+    public Node del(Node node) {
         // 寻找要添加节点的位置
         Node temp = first;
         while (temp != null && !temp.equals(node) && temp.next != first) {
@@ -135,6 +236,8 @@ public class CircleLinkedList implements LinkedList {
         }
         // 删除节点
         pre.next = next;
+        // 清空节点连接并返回
+        return temp.clearLink();
     }
 
     @Override
