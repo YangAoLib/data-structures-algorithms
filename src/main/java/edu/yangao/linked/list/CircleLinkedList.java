@@ -179,7 +179,7 @@ public class CircleLinkedList implements LinkedList {
                 first = node;
             }
             // 添加节点
-            node.next = pre.next;
+            node.next = temp;
             pre.next = node;
         }
     }
