@@ -17,10 +17,10 @@ public class CircleLinkedList implements LinkedList {
 
         circleLinkedList.clear();
         Joseph joseph = circleLinkedList.new Joseph();
-        joseph.addBoy(25);
-        System.out.println(joseph.countBoy(1, 2));
-        joseph.addBoy(25);
-        System.out.println(joseph.countBoyNative(1, 2));
+        joseph.addBoy(41);
+        System.out.println(joseph.countBoy(1, 3));
+        joseph.addBoy(41);
+        System.out.println(joseph.countBoyNative(1, 3));
     }
 
     public CircleLinkedList() {
