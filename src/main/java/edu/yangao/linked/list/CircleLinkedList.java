@@ -110,8 +110,8 @@ public class CircleLinkedList implements LinkedList {
                     start = start.next;
                 }
                 // 出队(删除节点)
-                startPre.next = start.next;
                 countNoList.add(start.orderNum);
+                startPre.next = start.next;
                 start = start.next;
             }
             // 取出最后一个节点
