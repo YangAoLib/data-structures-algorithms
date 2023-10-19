@@ -3,7 +3,7 @@ package edu.yangao.stack;
 import java.util.Scanner;
 
 /**
- * 用数据来模拟栈
+ * 用数组来模拟栈
  */
 public class ArrayStack implements Stack<Integer> {
 
