@@ -109,17 +109,12 @@ public class Calculator {
      * @return 结果
      */
     private static int cal(int end, int first, char operate) {
-        switch (operate) {
-            case '+':
-                return first + end;
-            case '-':
-                return first - end;
-            case '*':
-                return first * end;
-            case '/':
-                return first / end;
-            default:
-                throw new RuntimeException("操作符异常" + operate);
-        }
+        return switch (operate) {
+            case '+' -> first + end;
+            case '-' -> first - end;
+            case '*' -> first * end;
+            case '/' -> first / end;
+            default -> throw new RuntimeException("操作符异常" + operate);
+        };
     }
 }

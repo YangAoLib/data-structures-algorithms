@@ -1,7 +1,5 @@
 package edu.yangao.stack;
 
-import edu.yangao.linked.list.LinkedList;
-
 import java.util.Scanner;
 
 /**
@@ -65,12 +63,12 @@ public class LinkedStack implements Stack<Integer> {
     /**
      * 头节点
      */
-    private Node head;
+    private final Node head;
 
     /**
      * 节点类
      */
-    private class Node {
+    private static class Node {
 
         public Node(Integer data, Node next) {
             this.data = data;

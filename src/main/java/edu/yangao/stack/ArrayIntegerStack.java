@@ -68,10 +68,10 @@ public class ArrayIntegerStack implements Stack<Integer> {
     /**
      * 数组大小(最多可以存储数据的个数)
      */
-    private Integer maxSize;
+    private final Integer maxSize;
 
     /**
      * 存储数据的数组
      */
-    private Integer[] array;
+    private final Integer[] array;
 }

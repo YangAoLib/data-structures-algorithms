@@ -34,12 +34,14 @@ public class ArrayStack<T> implements Stack<T> {
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public T pop() {
         if (isEmpty()) throw new RuntimeException("栈已空");
         return (T)this.array[this.top--];
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public T peek() {
         if (isEmpty()) throw new RuntimeException("栈已空");
         return (T)this.array[this.top];
@@ -56,6 +58,7 @@ public class ArrayStack<T> implements Stack<T> {
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public T getValueFromScanner(Scanner scanner) {
         return (T)Integer.getInteger(scanner.next());
     }
