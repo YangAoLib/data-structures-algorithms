@@ -5,16 +5,16 @@ import java.util.Scanner;
 /**
  * 用数组来模拟栈
  */
-public class ArrayStack<T> implements Stack<T> {
+public class ArrayIntegerStack implements Stack<Integer> {
 
     public static void main(String[] args) {
-        new ArrayStack<Integer>(3).test();
+        new ArrayIntegerStack(3).test();
     }
 
-    public ArrayStack(Integer maxSize) {
+    public ArrayIntegerStack(Integer maxSize) {
         this.maxSize = maxSize;
         this.top = -1;
-        this.array = new Object[maxSize];
+        this.array = new Integer[maxSize];
     }
 
     @Override
@@ -28,21 +28,21 @@ public class ArrayStack<T> implements Stack<T> {
     }
 
     @Override
-    public void push(T value) {
+    public void push(Integer value) {
         if (isFull()) throw new RuntimeException("栈已满");
         this.array[++this.top] = value;
     }
 
     @Override
-    public T pop() {
+    public Integer pop() {
         if (isEmpty()) throw new RuntimeException("栈已空");
-        return (T)this.array[this.top--];
+        return this.array[this.top--];
     }
 
     @Override
-    public T peek() {
+    public Integer peek() {
         if (isEmpty()) throw new RuntimeException("栈已空");
-        return (T)this.array[this.top];
+        return this.array[this.top];
     }
 
     @Override
@@ -56,8 +56,8 @@ public class ArrayStack<T> implements Stack<T> {
     }
 
     @Override
-    public T getValueFromScanner(Scanner scanner) {
-        return (T)Integer.getInteger(scanner.next());
+    public Integer getValueFromScanner(Scanner scanner) {
+        return scanner.nextInt();
     }
 
     /**
@@ -68,10 +68,10 @@ public class ArrayStack<T> implements Stack<T> {
     /**
      * 数组大小(最多可以存储数据的个数)
      */
-    private final Integer maxSize;
+    private Integer maxSize;
 
     /**
      * 存储数据的数组
      */
-    private final Object[] array;
+    private Integer[] array;
 }

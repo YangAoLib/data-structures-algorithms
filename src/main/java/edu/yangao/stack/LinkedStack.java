@@ -42,6 +42,12 @@ public class LinkedStack implements Stack<Integer> {
     }
 
     @Override
+    public Integer peek() {
+        if (isEmpty()) throw new RuntimeException("栈已空");
+        return head.next.data;
+    }
+
+    @Override
     public void list() {
         System.out.print("栈中元素: ");
         for (Node cur = head.next; cur != null; cur = cur.next) {

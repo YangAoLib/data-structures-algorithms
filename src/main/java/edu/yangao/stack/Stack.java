@@ -32,6 +32,12 @@ public interface Stack<T> {
     T pop();
 
     /**
+     * 查看栈顶元素
+     * @return 栈顶元素
+     */
+    T peek();
+
+    /**
      * 遍历输出内容
      */
     void list();
