@@ -51,7 +51,7 @@ public class PolandNotation {
         // 遍历字符串
         StringBuilder number = new StringBuilder();
         for (char character : expression.toCharArray()) {
-            if (Calculator.isOperate(character)) {
+            if (isOperate(String.valueOf(character))) {
                 if (!number.isEmpty()) {
                     // 将收集的数字存入结果中
                     result.add(number.toString());
@@ -59,7 +59,7 @@ public class PolandNotation {
                 }
                 // 将符号存入
                 result.add(String.valueOf(character));
-            } else if (Calculator.isNumber(character) || !number.isEmpty() && character == '.') {
+            } else if (isNumber(String.valueOf(character)) || !number.isEmpty() && character == '.') {
                 // 如果是数字则进行收集整合
                 number.append(character);
             }
