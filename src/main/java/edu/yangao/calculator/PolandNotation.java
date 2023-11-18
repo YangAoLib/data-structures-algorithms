@@ -119,7 +119,7 @@ public class PolandNotation {
     /**
      * 操作符列表
      */
-    private static final List<String> operateList = Arrays.asList("+", "-", "*", "/", "(", ")");
+    private static final List<String> operateList = Arrays.asList("+", "-", "*", "/", "^", "(", ")");
     /**
      * 优先级映射关系Map
      */
