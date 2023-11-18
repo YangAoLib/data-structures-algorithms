@@ -1,4 +1,7 @@
-package edu.yangao.stack;
+package edu.yangao.calculator;
+
+import edu.yangao.stack.ArrayIntegerStack;
+import edu.yangao.stack.ArrayStack;
 
 import java.util.Arrays;
 import java.util.HashMap;
@@ -23,12 +26,8 @@ public class Calculator {
                     numberStack.push(Integer.parseInt(number.toString()));
                     number.setLength(0);
                 }
-                if (!operateStack.isEmpty() && operateStack.peek() == '(') {
-                    operateStack.push(c);
-                    continue;
-                }
                 // 如果操作符栈为空 直接入栈 否则判断操作符的优先级判断操作
-                if (!operateStack.isEmpty() && priority(c) <= priority(operateStack.peek()) || c == ')') {
+                if (!operateStack.isEmpty() && operateStack.peek() != '(' && priority(c) <= priority(operateStack.peek())) {
                     // 计算值
                     numberStack.push(cal(numberStack.pop(), numberStack.pop(), operateStack.pop()));
                 }
@@ -62,12 +61,12 @@ public class Calculator {
     private static final Map<Character, Integer> operatePriorityMap = new HashMap<>(6);
 
     static {
+        operatePriorityMap.put(')', -1);
         operatePriorityMap.put('+', 0);
         operatePriorityMap.put('-', 0);
         operatePriorityMap.put('*', 1);
         operatePriorityMap.put('/', 1);
         operatePriorityMap.put('(', 2);
-        operatePriorityMap.put(')', 2);
     }
 
     /**
@@ -86,7 +85,7 @@ public class Calculator {
      * @param character 字符
      * @return 是否为数字
      */
-    private static boolean isNumber(char character) {
+    public static boolean isNumber(char character) {
         return character >= '0' && character <= '9';
     }
 
@@ -96,7 +95,7 @@ public class Calculator {
      * @param character 字符
      * @return 是否为操作符
      */
-    private static boolean isOperate(char character) {
+    public static boolean isOperate(char character) {
         return operateList.contains(character);
     }
 
@@ -108,7 +107,7 @@ public class Calculator {
      * @param operate 操作符
      * @return 结果
      */
-    private static int cal(int end, int first, char operate) {
+    public static int cal(int end, int first, char operate) {
         return switch (operate) {
             case '+' -> first + end;
             case '-' -> first - end;
