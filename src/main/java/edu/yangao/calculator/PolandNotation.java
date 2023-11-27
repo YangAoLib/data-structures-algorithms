@@ -8,9 +8,10 @@ import java.util.*;
 public class PolandNotation {
 
     public static void main(String[] args) {
-        String infixExpressionStr = "1.01+((2^3)*4)-5";
+        String infixExpressionStr = "-+-*-1+((2^3)*4)--+*--5";
         // 中缀表达式
         List<String> infixExpressionList = parseInfixExpression(infixExpressionStr);
+        System.out.println(infixExpressionList);
         // 后缀表达式
         List<String> suffixExpression = parseSuffixExpression(infixExpressionList);
         // 结果
@@ -52,13 +53,21 @@ public class PolandNotation {
         StringBuilder number = new StringBuilder();
         for (char character : expression.toCharArray()) {
             if (isOperate(String.valueOf(character))) {
-                if (!number.isEmpty()) {
+                // 数字字符串不为空 并且 确实是一个数字
+                if (!number.isEmpty() && number.toString().matches("^([+-]+)?\\d+(\\.\\d+)?")) {
                     // 将收集的数字存入结果中
-                    result.add(number.toString());
+                    result.add(getRealNumber(number.toString()));
                     number.setLength(0);
                 }
-                // 将符号存入
-                result.add(String.valueOf(character));
+                // 结果集中最后一个元素
+                String endStr = result.isEmpty() ? null : result.get(result.size() - 1);
+                // 如果操作符是加号或减号并且 前面没有内容或者前面的内容是操作符则将这个符号算作数字的一部分
+                if (plusAndMinusSigns.contains(String.valueOf(character)) && (result.isEmpty() || isOperate(endStr) && !conclusion.contains(endStr))) {
+                    number.append(character);
+                } else if (!result.isEmpty() && !isOperate(endStr) || ")".equals(endStr) || character == '(') {
+                    // 将符号存入
+                    result.add(String.valueOf(character));
+                }
             } else if (isNumber(String.valueOf(character)) || !number.isEmpty() && character == '.') {
                 // 如果是数字则进行收集整合
                 number.append(character);
@@ -67,7 +76,7 @@ public class PolandNotation {
         // 存入最后的数字
         if (!number.isEmpty()) {
             // 将收集的数字存入结果中
-            result.add(number.toString());
+            result.add(getRealNumber(number.toString()));
         }
         return result;
     }
@@ -124,6 +133,14 @@ public class PolandNotation {
      * 优先级映射关系Map
      */
     private static final Map<String, Integer> operatePriorityMap = new HashMap<>(6);
+    /**
+     * 括号列表
+     */
+    private static final List<String> conclusion = Arrays.asList("(", ")");
+    /**
+     * 加减号列表
+     */
+    private static final List<String> plusAndMinusSigns = Arrays.asList("-", "+");
 
     static {
         operatePriorityMap.put("+", 0);
@@ -150,7 +167,7 @@ public class PolandNotation {
      * @return 是否为数字
      */
     public static boolean isNumber(String str) {
-        return str.matches("\\d+(\\.\\d+)?");
+        return str.matches("^[-+]?\\d+(\\.\\d+)?");
     }
 
     /**
@@ -180,5 +197,25 @@ public class PolandNotation {
             case "^" -> Math.pow(first, end);
             default -> throw new RuntimeException("操作符异常" + operate);
         };
+    }
+
+    /**
+     * 获取真正的数字（去除多余的正负号）
+     * @param number 未处理的数字字符串
+     * @return 处理后的数字字符串
+     */
+    public static String getRealNumber(String number) {
+        // 将收集的数字存入结果中 （根据符号的数量设置正负号）
+        boolean positive = number.chars().filter(item -> item == '-').count() % 2 == 0;
+        // 获取需要截取数字的位置（第一个数字）
+        int index = 0;
+        for (char character : number.toCharArray()) {
+            if (isNumber(String.valueOf(character))) {
+                break;
+            }
+            index++;
+        }
+        // 根据正负添加负号
+        return positive ? number.substring(index) : "-" + number.substring(index);
     }
 }
