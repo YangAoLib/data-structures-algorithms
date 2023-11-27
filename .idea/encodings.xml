@@ -2,7 +2,8 @@
 <project version="4">
   <component name="Encoding" defaultCharsetForPropertiesFiles="UTF-8">
     <file url="file://$PROJECT_DIR$/src/main/java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/代码/Algorithm/src/main/java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/代码/DataStructures/src/main/java" charset="GBK" />
     <file url="PROJECT" charset="UTF-8" />
   </component>
 </project>
