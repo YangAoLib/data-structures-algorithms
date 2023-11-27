@@ -107,7 +107,7 @@ public class PolandNotation {
                     result.add(operate);
                 }
             } else if (operateStack.isEmpty() || "(".equals(operateStack.peek())) {
-                // 栈为空则操作符直接入栈
+                // 栈为空或操作符栈顶是左括号, 则操作符直接入栈
                 operateStack.push(item);
             } else {
                 // 如果栈顶操作符的优先级大于等于当前操作符优先级则将操作符存入结果

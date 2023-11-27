@@ -26,7 +26,7 @@ public class Calculator {
                     numberStack.push(Integer.parseInt(number.toString()));
                     number.setLength(0);
                 }
-                // 如果操作符栈为空 直接入栈 否则判断操作符的优先级判断操作
+                // 如果操作符栈为空 直接入栈 否则判断操作符是否为左括号与操作符的优先级判断操作
                 if (!operateStack.isEmpty() && operateStack.peek() != '(' && priority(c) <= priority(operateStack.peek())) {
                     // 计算值
                     numberStack.push(cal(numberStack.pop(), numberStack.pop(), operateStack.pop()));
