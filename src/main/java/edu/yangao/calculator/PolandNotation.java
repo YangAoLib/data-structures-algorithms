@@ -54,7 +54,7 @@ public class PolandNotation {
         for (char character : expression.toCharArray()) {
             if (isOperate(String.valueOf(character))) {
                 // 数字字符串不为空 并且 确实是一个数字
-                if (!number.isEmpty() && number.toString().matches("^([+-]+)?\\d+(\\.\\d+)?")) {
+                if (!number.isEmpty() && number.toString().matches("^[+-]*\\d+(\\.\\d+)?")) {
                     // 将收集的数字存入结果中
                     result.add(getRealNumber(number.toString()));
                     number.setLength(0);
@@ -167,7 +167,7 @@ public class PolandNotation {
      * @return 是否为数字
      */
     public static boolean isNumber(String str) {
-        return str.matches("^[-+]?\\d+(\\.\\d+)?");
+        return str.matches("^[-+]*\\d+(\\.\\d+)?");
     }
 
     /**
